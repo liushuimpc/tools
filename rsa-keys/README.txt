@@ -13,3 +13,11 @@ openssl rsautl -encrypt -in file.txt -inkey test_pub.key -pubin -out file-encryp
 
 === Decrypt the file-encrypted.txt via private key ===
 openssl rsautl -decrypt -in file-encrypted.txt -inkey test.key -out file-decrypted.txt
+
+
+=== Signature file.txt via private key ===
+openssl rsautl -sign -in file.txt -inkey test.key -out file.txt.sign
+
+
+=== Verify the file.txt.sign via public key ===
+openssl rsautl -verify -in file.txt.sign -inkey test_pub.key -pubin -out file_verify.txt
