@@ -1,0 +1,30 @@
+
+# Steps to install Jenkins Agent using JNLP connection on Ubuntu 20.04 Focal Fossa
+#
+# * create an Agent node on the web GUI: https://wiki.jenkins.io/display/JENKINS/Step+by+step+guide+to+set+up+master+and+agent+machines+on+Windows
+
+# * $ sudo apt-get install -y openjdk-14-jre-headless
+# * $ sudo adduser jenkins
+# * $ curl http://jenkins-master.internal/jnlpJars/agent.jar -o /home/jenkins/agent.jar
+# * create systemd service: place this file in /lib/systemd/system/jenkins-agent.service
+# * $ sudo systemctl enable myservice
+# * $ sudo systemctl start jenkins-agent
+
+[Unit]
+Description=Jenkins Agent
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+# optional file to provide environment variables (e.g. http_proxy, https_proxy):
+#EnvironmentFile=/etc/sysconfig/jenkins
+# TODO: adapt -jnlpUrl und -secret, as found on the web GUI: Jenkins > Nodes > ...
+#ExecStart=/usr/bin/java -jar /data/shnsrvworker01/agent.jar -jnlpUrl https://blqsrv819.dl.net:20443/computer/shnsrvworker01/slave-agent.jnlp -secret @/data/shnsrvworker01/secret-file -workDir "/data/blqsrv819"
+ExecStart=/usr/bin/java -jar /data/shnsrvworker01/agent.jar -jnlpUrl https://blqsrv819.dl.net:20443/computer/shnsrvworker01/jenkins-agent.jnlp -secret @/data/shnsrvworker01/secret-file -workDir "/data/blqsrv819"
+Restart=always
+User=shnsrvworker01
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target
