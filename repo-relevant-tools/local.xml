@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<remote fetch="ssh://git@gitlab/xxx" name="my-secret-project"/>
+
+  <remove-project name="sys/security" remote="origin"/>
+  <remove-project name="vnd/security" remote="origin"/>
+ 
+  <project groups="group" name="security" path="security1" remote="my-secret-project" revision="tag1"/>
+  <project groups="group" name="security" path="security2" remote="my-secret-project" revision="tag1"/>
+
+</manifest>
